@@ -30,5 +30,5 @@ sweep:
   num_epochs: 1
   num_iterations:
     smoke: 2
-    baseline: 4130
-    extended: 12300
+    baseline: 2880
+    extended: 9420

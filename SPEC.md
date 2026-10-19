@@ -19,7 +19,7 @@ Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with sy
 | gradient_accumulation | `--gradient-accumulation` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
 | warmup_iters | `--warmup-iters` | smoke=1, baseline=2, extended=5 | 2 | From Parameter list; see Execution Description With Parameters. |
 | num_epochs | `--num-epochs` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
-| num_iterations | `--num-iterations` | smoke=2, baseline=4130, extended=12300 | 4130 | From Parameter list; see Execution Description With Parameters. |
+| num_iterations | `--num-iterations` | smoke=2, baseline=2880, extended=9420 | 2880 | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 
