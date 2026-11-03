@@ -85,7 +85,7 @@ Three operator scripts from [`garys-gpu-benchmarks/gpu-bench-suite`](https://git
 
 ## 1. Overview
 
-Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with synthetic SST-2-style batches. sequence_len, batch_size, warmup_iters, and num_iterations come from yaml. Parses samples/s, step time, tokens/s, and peak memory, averages a summary row, and sets status_ok to 1.0. This is not pytest test_bench.py. Sweep dimensions: model_name, dataset_name, num_gpus, sequence_len, batch_size, optimizer, learning_rate, weight_decay.
+Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with synthetic SST-2-style batches. sequence_len, batch_size, warmup_iters, and num_iterations come from yaml. Parses samples/s, step time, tokens/s, and peak memory, averages a summary row, and sets status_ok to 1.0. This is not pytest test_bench.py. Sweep dimensions: model_name, sequence_len, batch_size, learning_rate, weight_decay, num_iterations, gradient_accumulation, warmup_iters.
 
 ## 2. What It Validates
 

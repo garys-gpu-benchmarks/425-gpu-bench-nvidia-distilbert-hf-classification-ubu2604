@@ -2,24 +2,20 @@
 
 ## Execution Description
 
-Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with synthetic SST-2-style batches. sequence_len, batch_size, warmup_iters, and num_iterations come from yaml. Parses samples/s, step time, tokens/s, and peak memory, averages a summary row, and sets status_ok to 1.0. This is not pytest test_bench.py. Sweep dimensions: model_name, dataset_name, num_gpus, sequence_len, batch_size, optimizer, learning_rate, weight_decay.
+Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with synthetic SST-2-style batches. sequence_len, batch_size, warmup_iters, and num_iterations come from yaml. Parses samples/s, step time, tokens/s, and peak memory, averages a summary row, and sets status_ok to 1.0. This is not pytest test_bench.py. Sweep dimensions: model_name, sequence_len, batch_size, learning_rate, weight_decay, num_iterations, gradient_accumulation, warmup_iters.
 
 ## Parameters
 
 | Parameter | CLI Flag | Tested Values | Default | Description |
 | --- | --- | --- | --- | --- |
 | model_name | `--model-name` | smoke=distilbert-base-uncased, baseline=distilbert-base-uncased, extended=distilbert-base-uncased | distilbert-base-uncased | From Parameter list; see Execution Description With Parameters. |
-| dataset_name | `--dataset-name` | smoke=glue-sst2-synthetic, baseline=glue-sst2-synthetic, extended=glue-sst2-synthetic | glue-sst2-synthetic | From Parameter list; see Execution Description With Parameters. |
-| num_gpus | `--num-gpus` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
 | sequence_len | `--sequence-len` | smoke=32, baseline=128, extended=128 | 128 | From Parameter list; see Execution Description With Parameters. |
 | batch_size | `--batch-size` | smoke=2, baseline=16, extended=16 | 16 | From Parameter list; see Execution Description With Parameters. |
-| optimizer | `--optimizer` | smoke=adamw, baseline=adamw, extended=adamw | adamw | From Parameter list; see Execution Description With Parameters. |
 | learning_rate | `--learning-rate` | smoke=5e-05, baseline=5e-05, extended=5e-05 | 5e-05 | From Parameter list; see Execution Description With Parameters. |
 | weight_decay | `--weight-decay` | smoke=0.01, baseline=0.01, extended=0.01 | 0.01 | From Parameter list; see Execution Description With Parameters. |
+| num_iterations | `--num-iterations` | smoke=2, baseline=2880, extended=9420 | 2880 | From Parameter list; see Execution Description With Parameters. |
 | gradient_accumulation | `--gradient-accumulation` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
 | warmup_iters | `--warmup-iters` | smoke=1, baseline=2, extended=5 | 2 | From Parameter list; see Execution Description With Parameters. |
-| num_epochs | `--num-epochs` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
-| num_iterations | `--num-iterations` | smoke=2, baseline=2880, extended=9420 | 2880 | From Parameter list; see Execution Description With Parameters. |
 
 ## Invocation
 

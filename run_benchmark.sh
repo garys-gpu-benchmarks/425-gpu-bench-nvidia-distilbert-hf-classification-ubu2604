@@ -46,17 +46,13 @@ Validation and logging:
 
 Workload options:
   --model-name <value>            Override model_name
-  --dataset-name <value>            Override dataset_name
-  --num-gpus <value>            Override num_gpus
   --sequence-len <value>            Override sequence_len
   --batch-size <value>            Override batch_size
-  --optimizer <value>            Override optimizer
   --learning-rate <value>            Override learning_rate
   --weight-decay <value>            Override weight_decay
+  --num-iterations <value>            Override num_iterations
   --gradient-accumulation <value>            Override gradient_accumulation
   --warmup-iters <value>            Override warmup_iters
-  --num-epochs <value>            Override num_epochs
-  --num-iterations <value>            Override num_iterations
 
 Information:
   --specification               Print this workload's specification and exit
@@ -91,17 +87,13 @@ LOG_LEVEL_VALUE="INFO"
 OUTPUT_FORMAT=""
 SAVE_OPTIONS_FILE=""
 MODEL_NAME=""
-DATASET_NAME=""
-NUM_GPUS=""
 SEQUENCE_LEN=""
 BATCH_SIZE=""
-OPTIMIZER=""
 LEARNING_RATE=""
 WEIGHT_DECAY=""
+NUM_ITERATIONS=""
 GRADIENT_ACCUMULATION=""
 WARMUP_ITERS=""
-NUM_EPOCHS=""
-NUM_ITERATIONS=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -123,17 +115,13 @@ while [[ $# -gt 0 ]]; do
     --output-format) OUTPUT_FORMAT="${2:-}"; shift 2 ;;
     --save-options-file) SAVE_OPTIONS_FILE="${2:-}"; shift 2 ;;
     --model-name) MODEL_NAME="${2:-}"; shift 2 ;;
-    --dataset-name) DATASET_NAME="${2:-}"; shift 2 ;;
-    --num-gpus) NUM_GPUS="${2:-}"; shift 2 ;;
     --sequence-len) SEQUENCE_LEN="${2:-}"; shift 2 ;;
     --batch-size) BATCH_SIZE="${2:-}"; shift 2 ;;
-    --optimizer) OPTIMIZER="${2:-}"; shift 2 ;;
     --learning-rate) LEARNING_RATE="${2:-}"; shift 2 ;;
     --weight-decay) WEIGHT_DECAY="${2:-}"; shift 2 ;;
+    --num-iterations) NUM_ITERATIONS="${2:-}"; shift 2 ;;
     --gradient-accumulation) GRADIENT_ACCUMULATION="${2:-}"; shift 2 ;;
     --warmup-iters) WARMUP_ITERS="${2:-}"; shift 2 ;;
-    --num-epochs) NUM_EPOCHS="${2:-}"; shift 2 ;;
-    --num-iterations) NUM_ITERATIONS="${2:-}"; shift 2 ;;
     --help|--specification|--matrix-definition) shift ;;
     *) die "Unknown option: $1" ;;
   esac
@@ -173,34 +161,26 @@ PY
 }
 
 MODEL_NAME="${MODEL_NAME:-$(yaml_get model_name)}"
-DATASET_NAME="${DATASET_NAME:-$(yaml_get dataset_name)}"
-NUM_GPUS="${NUM_GPUS:-$(yaml_get num_gpus)}"
 SEQUENCE_LEN="${SEQUENCE_LEN:-$(yaml_get sequence_len)}"
 BATCH_SIZE="${BATCH_SIZE:-$(yaml_get batch_size)}"
-OPTIMIZER="${OPTIMIZER:-$(yaml_get optimizer)}"
 LEARNING_RATE="${LEARNING_RATE:-$(yaml_get learning_rate)}"
 WEIGHT_DECAY="${WEIGHT_DECAY:-$(yaml_get weight_decay)}"
+NUM_ITERATIONS="${NUM_ITERATIONS:-$(yaml_get num_iterations)}"
 GRADIENT_ACCUMULATION="${GRADIENT_ACCUMULATION:-$(yaml_get gradient_accumulation)}"
 WARMUP_ITERS="${WARMUP_ITERS:-$(yaml_get warmup_iters)}"
-NUM_EPOCHS="${NUM_EPOCHS:-$(yaml_get num_epochs)}"
-NUM_ITERATIONS="${NUM_ITERATIONS:-$(yaml_get num_iterations)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-$(yaml_get output_format)}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-csv}"
 
 BENCHMARK_RUN_COMMAND="bash run_benchmark.sh --${PROFILE}"
 [[ "${VALIDATE}" -eq 1 ]] && BENCHMARK_RUN_COMMAND+=" --validate"
 [[ -n "${MODEL_NAME}" ]] && BENCHMARK_RUN_COMMAND+=" --model-name $(printf %q "${MODEL_NAME}")"
-[[ -n "${DATASET_NAME}" ]] && BENCHMARK_RUN_COMMAND+=" --dataset-name $(printf %q "${DATASET_NAME}")"
-[[ -n "${NUM_GPUS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-gpus $(printf %q "${NUM_GPUS}")"
 [[ -n "${SEQUENCE_LEN}" ]] && BENCHMARK_RUN_COMMAND+=" --sequence-len $(printf %q "${SEQUENCE_LEN}")"
 [[ -n "${BATCH_SIZE}" ]] && BENCHMARK_RUN_COMMAND+=" --batch-size $(printf %q "${BATCH_SIZE}")"
-[[ -n "${OPTIMIZER}" ]] && BENCHMARK_RUN_COMMAND+=" --optimizer $(printf %q "${OPTIMIZER}")"
 [[ -n "${LEARNING_RATE}" ]] && BENCHMARK_RUN_COMMAND+=" --learning-rate $(printf %q "${LEARNING_RATE}")"
 [[ -n "${WEIGHT_DECAY}" ]] && BENCHMARK_RUN_COMMAND+=" --weight-decay $(printf %q "${WEIGHT_DECAY}")"
+[[ -n "${NUM_ITERATIONS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-iterations $(printf %q "${NUM_ITERATIONS}")"
 [[ -n "${GRADIENT_ACCUMULATION}" ]] && BENCHMARK_RUN_COMMAND+=" --gradient-accumulation $(printf %q "${GRADIENT_ACCUMULATION}")"
 [[ -n "${WARMUP_ITERS}" ]] && BENCHMARK_RUN_COMMAND+=" --warmup-iters $(printf %q "${WARMUP_ITERS}")"
-[[ -n "${NUM_EPOCHS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-epochs $(printf %q "${NUM_EPOCHS}")"
-[[ -n "${NUM_ITERATIONS}" ]] && BENCHMARK_RUN_COMMAND+=" --num-iterations $(printf %q "${NUM_ITERATIONS}")"
 set_benchmark_run_command "${BENCHMARK_RUN_COMMAND}"
 
 HOSTNAME_VALUE="$(hostname -s 2>/dev/null || hostname)"
@@ -244,17 +224,13 @@ run_collection() {
   fi
   grep -q -- '--output-format' <<<"${help}" && collect_args+=(--output-format "${OUTPUT_FORMAT}")
   grep -q -- '--model-name' <<<"${help}" && collect_args+=(--model-name "${MODEL_NAME}")
-  grep -q -- '--dataset-name' <<<"${help}" && collect_args+=(--dataset-name "${DATASET_NAME}")
-  grep -q -- '--num-gpus' <<<"${help}" && collect_args+=(--num-gpus "${NUM_GPUS}")
   grep -q -- '--sequence-len' <<<"${help}" && collect_args+=(--sequence-len "${SEQUENCE_LEN}")
   grep -q -- '--batch-size' <<<"${help}" && collect_args+=(--batch-size "${BATCH_SIZE}")
-  grep -q -- '--optimizer' <<<"${help}" && collect_args+=(--optimizer "${OPTIMIZER}")
   grep -q -- '--learning-rate' <<<"${help}" && collect_args+=(--learning-rate "${LEARNING_RATE}")
   grep -q -- '--weight-decay' <<<"${help}" && collect_args+=(--weight-decay "${WEIGHT_DECAY}")
+  grep -q -- '--num-iterations' <<<"${help}" && collect_args+=(--num-iterations "${NUM_ITERATIONS}")
   grep -q -- '--gradient-accumulation' <<<"${help}" && collect_args+=(--gradient-accumulation "${GRADIENT_ACCUMULATION}")
   grep -q -- '--warmup-iters' <<<"${help}" && collect_args+=(--warmup-iters "${WARMUP_ITERS}")
-  grep -q -- '--num-epochs' <<<"${help}" && collect_args+=(--num-epochs "${NUM_EPOCHS}")
-  grep -q -- '--num-iterations' <<<"${help}" && collect_args+=(--num-iterations "${NUM_ITERATIONS}")
 
   printf -v collect_cmd '%q ' "${PYTHON_BIN}" scripts/collect_workload.py "${collect_args[@]}"
   echo "[RUN] ${collect_cmd}"
