@@ -25,6 +25,11 @@
     "value": "gpu-bench-nvidia-distilbert-hf-classification-ubu2604"
   },
   {
+    "field_name": "Repo Directory Name",
+    "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
+    "value": "425-gpu-bench-nvidia-distilbert-hf-classification-ubu2604"
+  },
+  {
     "field_name": "Main Goal",
     "source_file": "BenchmarkSpecDefinitions.xlsx::Workload_Definitions",
     "value": "Measure DistilBERT classification training throughput"
