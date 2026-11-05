@@ -11,7 +11,7 @@ Runs gpu-bench-distilbert-sst2-train.py twice on distilbert-base-uncased with sy
 | model_name | `--model-name` | smoke=distilbert-base-uncased, baseline=distilbert-base-uncased, extended=distilbert-base-uncased | distilbert-base-uncased | From Parameter list; see Execution Description With Parameters. |
 | sequence_len | `--sequence-len` | smoke=32, baseline=128, extended=128 | 128 | From Parameter list; see Execution Description With Parameters. |
 | batch_size | `--batch-size` | smoke=2, baseline=16, extended=16 | 16 | From Parameter list; see Execution Description With Parameters. |
-| learning_rate | `--learning-rate` | smoke=5e-05, baseline=5e-05, extended=5e-05 | 5e-05 | From Parameter list; see Execution Description With Parameters. |
+| learning_rate | `--learning-rate` | smoke=5.0000000000000002E-5, baseline=5.0000000000000002E-5, extended=5.0000000000000002E-5 | 5.0000000000000002E-5 | From Parameter list; see Execution Description With Parameters. |
 | weight_decay | `--weight-decay` | smoke=0.01, baseline=0.01, extended=0.01 | 0.01 | From Parameter list; see Execution Description With Parameters. |
 | num_iterations | `--num-iterations` | smoke=2, baseline=2880, extended=9420 | 2880 | From Parameter list; see Execution Description With Parameters. |
 | gradient_accumulation | `--gradient-accumulation` | smoke=1, baseline=1, extended=1 | 1 | From Parameter list; see Execution Description With Parameters. |
@@ -87,9 +87,9 @@ pass1,distilbert-base-uncased,128,16,ok,80,200,200,10240,3,1
 
 ```bash
 bash run_benchmark.sh --help
-bash run_benchmark.sh --profile smoke --validate
-bash run_benchmark.sh --profile baseline --validate
-bash run_benchmark.sh --profile extended --validate
+bash run_benchmark.sh --smoke --validate
+bash run_benchmark.sh --baseline --validate
+bash run_benchmark.sh --extended --validate
 ```
 `run_benchmark.sh --help` prints usage and exits. The harness calls `scripts/ensure_setup.sh` when `.setup_state` is absent.
 
