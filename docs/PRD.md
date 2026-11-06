@@ -15,7 +15,7 @@ This PRD.md section is populated from benchmark_specification.json, which is the
 DistilBERT NLP Training Baseline
 
 ## Execution Summary (Run and Measure)
-Run gpu-bench-distilbert-sst2-train.py twice on Hugging Face distilbert-base-uncased with synthetic glue-sst2-synthetic batches, parse RESULT samples/s, step_time_msec, tokens/s, and peak memory, average a summary row, and set status_ok=1.0, to measure DistilBERT training throughput. This is not pytest test_bench.py
+Run gpu-bench-distilbert-sst2-train.py twice on Hugging Face distilbert-base-uncased with synthetic glue-sst2-synthetic batches, parse RESULT samples/s, step_time_msec, tokens/s, and peak memory, average a summary row, and set status_ok=1.0, to measure DistilBERT training throughput
 
 ## Main Goal
 Measure DistilBERT classification training throughput
