@@ -16,12 +16,11 @@ capture_benchmark_run_command_submitted "$@"
 
 usage() {
   cat <<'USAGE'
+
 Usage: bash run_benchmark.sh [OPTIONS]
 
 Workload Name:          DistilBERT NLP Training Baseline.
 Main Goal:              Measure DistilBERT classification training throughput.
-Validation Objective:   Validates DistilBERT classification training throughput from samples/s, step
-                        time, and tokens/s.
 Command Tools Executed: Run gpu-bench-distilbert-sst2-train.py via collect_distilbert_train.py.
 
 Profiles (default: --smoke):
@@ -33,7 +32,7 @@ Parameters (override the profile's value):
   --model-name <value>          Model or weights identifier to load (smoke/baseline/extended: distilbert-base-uncased)
   --sequence-len <n>            Total input sequence or context length (smoke 32, baseline 128, extended 128)
   --batch-size <n>              Number of items processed together (smoke 2, baseline 16, extended 16)
-  --learning-rate <n>           Optimizer step size (smoke/baseline/extended: 5e-05)
+  --learning-rate <n>           Optimizer step size (smoke/baseline/extended: 5.0000000000000002E-5)
   --weight-decay <value>        Shared workload parameter (smoke/baseline/extended: 0.01)
   --num-iterations <n>          Number of timed repetitions (smoke 2, baseline 2880, extended 9420)
   --gradient-accumulation <n>   Number of forward/backward passes accumulated per optimizer update (smoke/baseline/extended: 1)
