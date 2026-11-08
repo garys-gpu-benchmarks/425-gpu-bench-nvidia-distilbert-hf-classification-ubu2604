@@ -19,9 +19,9 @@ usage() {
 
 Usage: bash run_benchmark.sh [OPTIONS]
 
-Workload Name:          DistilBERT NLP Training Baseline.
-Main Goal:              Measure DistilBERT classification training throughput.
-Command Tools Executed: Run gpu-bench-distilbert-sst2-train.py via collect_distilbert_train.py.
+Workload Name:          DistilBERT NLP Training Baseline
+Main Goal:              Measure DistilBERT classification training throughput
+Command Tools Executed: Run gpu-bench-distilbert-sst2-train.py via collect_distilbert_train.py
 
 Profiles (default: --smoke):
   --smoke                       Run smoke profile
