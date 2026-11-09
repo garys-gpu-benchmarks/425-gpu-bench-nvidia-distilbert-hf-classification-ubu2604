@@ -25,7 +25,7 @@ bash run_benchmark.sh --smoke
 | `model_name` | `--model-name` | distilbert-base-uncased | distilbert-base-uncased | distilbert-base-uncased |
 | `sequence_len` | `--sequence-len` | 32 | 128 | 128 |
 | `batch_size` | `--batch-size` | 2 | 16 | 16 |
-| `learning_rate` | `--learning-rate` | 5e-05 | 5e-05 | 5e-05 |
+| `learning_rate` | `--learning-rate` | 5.0000000000000002E-5 | 5.0000000000000002E-5 | 5.0000000000000002E-5 |
 | `weight_decay` | `--weight-decay` | 0.01 | 0.01 | 0.01 |
 | `num_iterations` | `--num-iterations` | 2 | 2880 | 9420 |
 | `gradient_accumulation` | `--gradient-accumulation` | 1 | 1 | 1 |
@@ -101,6 +101,7 @@ Other platforms: [AMD 24.04](https://github.com/garys-gpu-benchmarks/bundle-amd-
 ├── setup.sh                      # installs dependencies and builds the benchmark
 ├── run_benchmark.sh              # runs one profile, parses, validates
 ├── show_metrics.sh               # prints this workload's ledger rows
+├── list_runs.sh                  # prints every run in the ledger
 ├── SPEC.md                       # engineering specification
 ├── benchmark_specification.json  # workload definition
 ├── config/                       # profile values and thresholds
