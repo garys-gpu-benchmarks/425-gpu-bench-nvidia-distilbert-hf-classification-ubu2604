@@ -15,7 +15,7 @@ sweep:
     smoke: 2
     baseline: 16
     extended: 16
-  learning_rate: 5e-05
+  learning_rate: '5.0000000000000002E-5'
   weight_decay: 0.01
   num_iterations:
     smoke: 2
