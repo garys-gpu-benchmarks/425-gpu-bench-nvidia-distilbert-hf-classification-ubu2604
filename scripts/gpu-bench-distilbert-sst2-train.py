@@ -5,9 +5,32 @@ from __future__ import annotations
 
 import argparse
 import math
+import os
+
+# Quiet Hugging Face loading: no "Loading weights" progress bar and no LOAD REPORT
+# table. The report lists the pretraining head (vocab_*) as UNEXPECTED and the new
+# classification head (pre_classifier, classifier) as MISSING; both are expected
+# when fine-tuning from distilbert-base-uncased. The settings are read when
+# transformers is imported, so they come first.
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+os.environ.setdefault("TRANSFORMERS_VERBOSITY", "error")
+
 
 import torch
 from transformers import DistilBertConfig, DistilBertForSequenceClassification
+
+
+# The new classification head is expected to be missing from the base checkpoint.
+CLASSIFIER_HEAD = ("pre_classifier.", "classifier.")
+
+
+def warn_missing_weights(name: str, loading: dict) -> None:
+    """The hidden load report would also hide body weights missing from the
+    checkpoint (randomly initialized); name those, but not the classifier head."""
+    missing = sorted(key for key in loading.get("missing_keys", ()) if not key.startswith(CLASSIFIER_HEAD))
+    if missing:
+        print(f"[WARN] {name}: {len(missing)} model weights missing from the checkpoint "
+              f"(randomly initialized): {', '.join(missing[:5])}", flush=True)
 
 
 def finite_nonneg(value: float) -> float:
@@ -23,7 +46,9 @@ def token_on(value: object) -> bool:
 
 def load_model(name: str, device: torch.device) -> torch.nn.Module:
     try:
-        model = DistilBertForSequenceClassification.from_pretrained(name, num_labels=2)
+        model, loading = DistilBertForSequenceClassification.from_pretrained(
+            name, num_labels=2, output_loading_info=True)
+        warn_missing_weights(name, loading)
     except Exception:
         model = DistilBertForSequenceClassification(DistilBertConfig(num_labels=2))
     return model.to(device)
