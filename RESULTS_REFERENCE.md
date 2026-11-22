@@ -11,15 +11,15 @@ Reference results from the validation run on the system shown in each section (r
 ## smoke
 
 - **System:** 1× NVIDIA H100 80GB HBM3 (81559 MiB) · Intel(R) Xeon(R) Platinum 8468 · Ubuntu 26.04.1 LTS · kernel 6.8.0-149-generic · driver 595.112.07
-- **Run:** 2026-11-22T11:41:25Z · status **PASS** (exit 0)
-- **Time (mm:ss):** setup 02:20 · benchmark 00:03 · whole run 02:32
-- **Source:** run 425_20261122_114125
+- **Run:** 2026-11-22T15:19:52Z · status **PASS** (exit 0)
+- **Time (mm:ss):** setup 02:35 · benchmark 00:02 · whole run 02:46
+- **Source:** run 425_20261122_151952
 - **Command:** `bash run_benchmark.sh --smoke --model-name distilbert-base-uncased --sequence-len 32 --batch-size 2 --learning-rate 5.0000000000000002E-5 --weight-decay 0.01 --num-iterations 2 --gradient-accumulation 1 --warmup-iters 1`
 
 | # | Metric | Result |
 |---|---|---|
-| 1 | Training throughput (samples_per_sec) | 36.287231 |
-| 2 | Training step time, ms (step_time_ms) | 55.115807 |
-| 3 | Token throughput (tokens_per_sec) | 1161.191389 |
+| 1 | Training throughput (samples_per_sec) | 38.55735 |
+| 2 | Training step time, ms (step_time_ms) | 51.870785 |
+| 3 | Token throughput (tokens_per_sec) | 1233.835198 |
 | 4 | Peak GPU memory (peak_gpu_memory_gb) | 1.411881 |
 <!-- /profile:smoke -->
